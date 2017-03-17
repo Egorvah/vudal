@@ -1,5 +1,5 @@
 <template>
-  <div class="vudal" v-bind:class="{ 'show': isVisible, 'hide': !isVisible, 'mobile' : isPhone }">
+  <div class="vudal" :class="{ 'show': isVisible, 'hide': !isVisible, 'mobile' : isPhone }">
     <slot></slot>
   </div>
 </template>
