@@ -64,3 +64,12 @@ Also global `$modals` object is available to control modals.
 You can access modals by name, for example `this.$modals.myModal`. 
 
 Use `this.$modals.hideAll()` to hide all active modals.
+
+## Custom modals
+
+If you need to create your own custom looking modal, you can use `modalMixin` that will drive your modal.
+
+It adds everything specified above, except `.actions` selector thing.
+
+It also adds `.vudal` class to root element and `.show`, `.hide` and `.mobile` class for visible, hidden
+and opened on mobile device accordingly.

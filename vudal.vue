@@ -1,113 +1,31 @@
 <template>
-  <div class="vudal" :class="{ 'show': isVisible, 'hide': !isVisible, 'mobile' : isPhone }">
+  <div>
     <slot></slot>
   </div>
 </template>
 <script>
-import objectAssign from 'object-assign';
-import elementResizeEvent from 'element-resize-event';
-import MobileDetect from 'mobile-detect';
-
-const md = new MobileDetect(window.navigator.userAgent);
+import modalMixin from './modalMixin';
 
 export default {
 
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
-
-    parentRef: {
-      type: String,
-      default: null,
-    },
-
-    parent: {
-      type: String,
-      default: null,
-    },
-
-    name: {
-      type: String,
-      default: null,
-    },
-  },
-
-  data() {
-    return {
-      isVisible: false,
-      internalOptions: this.options,
-    };
-  },
+  mixins: [modalMixin],
 
   mounted() {
-    this.$modals.addModal(this);
+    // add events as semantic ui modal
 
-    const options = {
-      onHidden: () => this.$emit('hidden'),
-      onVisible: () => this.$emit('visible'),
-      onShow: () => this.$emit('show'),
-      onHide: () => {
-        this.$emit('hide');
-        return true;
-      },
-    };
-    this.$setOptions(options);
-
-    this.$toggle = () => this.toggle();
-    this.$show = () => this.show();
-    this.$hide = () => this.hide();
-    this.$remove = () => this.$modals.removeModal(this);
-
-    // set to center modal after change content size
-    elementResizeEvent(this.$el, () => {
-      this.$modals.setPosition(this);
+    // semantic has close button as direct child
+    $(this.$el).children('.close').on('click', () => {
+      this.hide();
     });
-  },
 
-  destroyed() {
-    this.$modals.removeModal(this);
-  },
+    // in case if close button is not a direct child (bootstrap)
+    $(this.$el).children('.header').children('.close').on('click', () => {
+      this.hide();
+    });
 
-  computed: {
-    $isActive() {
-      return this.isVisible;
-    },
-  },
-
-  methods: {
-    $setOptions(options) {
-      const opts = objectAssign({}, this.internalOptions, options);
-      this.internalOptions = opts;
-    },
-
-    toggle() {
-      if (this.isVisible) {
-        this.hide();
-      }
-      else {
-        this.show();
-      }
-    },
-
-    show() {
-      this.isVisible = true;
-      this.internalOptions.onShow();
-      this.$modals.onShow(this);
-    },
-
-    hide() {
-      this.isVisible = false;
-      this.internalOptions.onHide();
-      this.$modals.onHide(this);
-    },
-
-    isPhone() {
-      return !!md.phone();
-    },
+    $(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative', () => {
+      this.hide();
+    });
   },
 
 };

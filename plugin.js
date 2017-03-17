@@ -41,22 +41,6 @@ export default {
         this.modals.push(modal);
         // add modal to dimmer wrapper
         $(dimmerSelector).append($(modal.$el).detach());
-
-        // add events as semantic ui modal
-
-        // semantic has close button as direct child
-        $(modal.$el).children('.close').on('click', () => {
-          modal.hide();
-        });
-
-        // in case if close button is not a direct child (bootstrap)
-        $(modal.$el).children('.header').children('.close').on('click', () => {
-          modal.hide();
-        });
-
-        $(modal.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative', () => {
-          modal.hide();
-        });
       }
 
       removeModal(modal) {
