@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import $ from 'jquery';
 import modalMixin from './modalMixin';
 
 export default {
