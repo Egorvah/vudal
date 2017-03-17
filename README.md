@@ -63,6 +63,8 @@ Also global `$modals` object is available to control modals.
 
 You can access modals by name, for example `this.$modals.myModal`. 
 
+**Example:** `this.$modals.myModal.$show()` to show modal.
+
 Use `this.$modals.hideAll()` to hide all active modals.
 
 ## Custom modals
