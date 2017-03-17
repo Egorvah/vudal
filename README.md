@@ -1,6 +1,6 @@
 # Vudal
 
-Modal window component based on Semantic UI design.
+Modal window component based on Semantic UI design. (Does not require semantic ui, it is completely independent)
 
 Install plugin
 ```
