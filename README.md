@@ -4,9 +4,9 @@ Modal window component based on Semantic UI design. (Does not require semantic u
 
 Install plugin
 ```
-import Vudal from 'vudal/plugin';
+import { VudalPlugin } from 'vudal';
 
-Vue.use(Vudal);
+Vue.use(VudalPlugin);
 ```
 
 Inside your component make preparations

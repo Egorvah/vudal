@@ -1,8 +1,8 @@
 {
   "name": "vudal",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Another modal window for vue",
-  "main": "vudal.vue",
+  "main": "index.es5.js",
   "scripts": {
     "test": "node node_modules/karma/bin/karma start",
     "lint": "node node_modules/eslint/bin/eslint.js test vudal.vue plugin.js --ext js,vue || true"
@@ -36,6 +36,10 @@
     "eslint-plugin-import": "^1.13.0",
     "eslint-plugin-jasmine": "^2.0.0",
     "eslint-plugin-vue": "^0.1.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglifyjs": "^0.6.2",
     "jasmine": "^2.5.2",
     "jasmine-ajax": "^3.2.0",
     "jasmine-core": "^2.5.2",
@@ -47,8 +51,8 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
     "phantomjs": "^2.1.7+deprecated",
-    "vue-template-compiler": "2.2.4",
     "vue-loader": "^10.0",
+    "vue-template-compiler": "2.2.4",
     "webpack": "1"
   },
   "peerDependencies": {

@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import VudalPlugin from './../plugin';
-import Vudal from './../vudal';
+import { VudalPlugin } from './../index';
+import Vudal from './../index';
 
 describe('vudal', () => {
   let root;
