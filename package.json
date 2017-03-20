@@ -1,8 +1,8 @@
 {
   "name": "vudal",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Another modal window for vue",
-  "main": "index.es5.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "node node_modules/karma/bin/karma start",
     "lint": "node node_modules/eslint/bin/eslint.js test vudal.vue plugin.js --ext js,vue || true"

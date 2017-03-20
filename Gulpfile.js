@@ -5,20 +5,15 @@ const rename = require('gulp-rename');
 const replace = require('babel-plugin-transform-rename-import').default;
 
 gulp.task('default', () => {
-    gulp.src('index.js')
+    gulp.src('src/*.js')
         .pipe(babel({
             presets: ['es2015'],
-            plugins: [
-                [replace, { original: './plugin', replacement: './plugin.es5' }],
-            ],
+            // plugins: [
+                // [replace, { original: './plugin', replacement: './plugin.es5' }],
+            // ],
         }))
-        .pipe(rename('index.es5.js'))
-        .pipe(gulp.dest('.'));
+        .pipe(gulp.dest('dist'));
 
-        gulp.src('plugin.js')
-        .pipe(babel({
-            presets: ['es2015'],
-        }))
-        .pipe(rename('plugin.es5.js'))
-        .pipe(gulp.dest('.'));
+    gulp.src('src/vudal.vue')
+        .pipe(gulp.dest('dist'));
 });
