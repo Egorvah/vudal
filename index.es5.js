@@ -9,7 +9,7 @@ var _vudal = require('./vudal.vue');
 
 var _vudal2 = _interopRequireDefault(_vudal);
 
-var _plugin = require('./plugin');
+var _plugin = require('./plugin.es5');
 
 var _plugin2 = _interopRequireDefault(_plugin);
 
