@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import 'proxy-polyfill';
-import MobileDetect from 'mobile-detect';
-
-const md = new MobileDetect(window.navigator.userAgent);
+import isMobile from 'ismobilejs';
 
 function isFunction(object) {
   return typeof object === 'function';
@@ -237,7 +235,7 @@ export default {
           // if show modal window
           if ($(dimmerSelector).hasClass('show')) {
             // detect mobile device
-            if (md.phone()) {
+            if (isMobile.phone) {
               // if target not input
               if ($(document.activeElement).attr('type') !== 'text') {
                 Vue.prototype.$modals.resetPositions();

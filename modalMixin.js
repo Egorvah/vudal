@@ -1,8 +1,6 @@
 import objectAssign from 'object-assign';
 import elementResizeEvent from 'element-resize-event';
-import MobileDetect from 'mobile-detect';
-
-const md = new MobileDetect(window.navigator.userAgent);
+import isMobile from 'ismobilejs';
 
 export default {
 
@@ -74,7 +72,7 @@ export default {
     },
 
     isPhone() {
-      return !!md.phone();
+      return isMobile.phone;
     },
   },
 
