@@ -55,7 +55,7 @@ exports.default = {
 
     this.$modals.addModal(this);
 
-    $(this.$el).addClass('vudal');
+    $(this.$el).addClass('vudal').addClass('hide');
 
     var options = {
       onHidden: function onHidden() {

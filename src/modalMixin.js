@@ -38,7 +38,7 @@ export default {
   mounted() {
     this.$modals.addModal(this);
 
-    $(this.$el).addClass('vudal');
+    $(this.$el).addClass('vudal').addClass('hide');
 
     const options = {
       onHidden: () => this.$emit('hidden'),
