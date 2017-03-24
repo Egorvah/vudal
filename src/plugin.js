@@ -7,10 +7,13 @@ function isFunction(object) {
 }
 
 export default {
-  install: (Vue) => {
+  install: (Vue, options = {}) => {
     const defaultLayer = 1000;
     const dimmerSelector = '.vudal-dimmer';
     const modalSelector = '.vudal';
+    const hideModalsOnDimmerClick = options.hideModalsOnDimmerClick != null
+      ? options.hideModalsOnDimmerClick
+      : true;
 
     class Modal {
       constructor() {
@@ -206,15 +209,18 @@ export default {
         const dimmer = '<div class="vudal-dimmer"></div>';
         $(document.body).append(dimmer);
 
-        // close all modals on click dimmer
-        $(document).on('click', dimmerSelector, () => {
-          Vue.prototype.$modals.hideAll();
-        });
+        if (hideModalsOnDimmerClick) {
+          // close all modals when clickling on dimmer
+          $(document).on('click', dimmerSelector, () => {
+            Vue.prototype.$modals.hideAll();
+          });
+        }
+
         $(document).on('click', modalSelector, (event) => {
           event.stopPropagation();
         });
 
-        // hide modals on click back button
+        // hide modals when clicking on back button
         $(window).on('popstate', () => {
           if ($(dimmerSelector).hasClass('show')) {
             event.stopPropagation();

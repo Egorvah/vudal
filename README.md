@@ -9,6 +9,10 @@ import { VudalPlugin } from 'vudal';
 Vue.use(VudalPlugin);
 ```
 
+Possible options:
+
+* **hideModalsOnDimmerClick** (defaults to true) lets control whether clicking on dimmer will hide opened modals
+
 Inside your component make preparations
 ```
 import Vudal from 'vudal';
