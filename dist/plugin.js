@@ -30,9 +30,12 @@ function isFunction(object) {
 
 exports.default = {
   install: function install(Vue) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
     var defaultLayer = 1000;
     var dimmerSelector = '.vudal-dimmer';
     var modalSelector = '.vudal';
+    var hideModalsOnDimmerClick = options.hideModalsOnDimmerClick != null ? options.hideModalsOnDimmerClick : true;
 
     var Modal = function () {
       function Modal() {
@@ -252,9 +255,12 @@ exports.default = {
           var dimmer = '<div class="vudal-dimmer"></div>';
           (0, _jquery2.default)(document.body).append(dimmer);
 
-          (0, _jquery2.default)(document).on('click', dimmerSelector, function () {
-            Vue.prototype.$modals.hideAll();
-          });
+          if (hideModalsOnDimmerClick) {
+            (0, _jquery2.default)(document).on('click', dimmerSelector, function () {
+              Vue.prototype.$modals.hideAll();
+            });
+          }
+
           (0, _jquery2.default)(document).on('click', modalSelector, function (event) {
             event.stopPropagation();
           });
