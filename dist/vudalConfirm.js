@@ -54,10 +54,8 @@ exports.default = {
       this.$emit('approve');
     },
     cancel: function cancel() {
+      this.$modals[this.name].$hide();
       this.$emit('cancel');
-    },
-    $show: function $show() {
-      this.$modals[name].$show();
     }
   }
 };

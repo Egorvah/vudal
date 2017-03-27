@@ -1,6 +1,6 @@
 {
   "name": "vudal",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Another modal window for vue",
   "main": "dist/index.js",
   "scripts": {

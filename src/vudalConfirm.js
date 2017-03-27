@@ -46,11 +46,8 @@ export default {
     },
 
     cancel() {
+      this.$modals[this.name].$hide();
       this.$emit('cancel');
-    },
-
-    $show() {
-      this.$modals[name].$show();
     },
   },
 };
