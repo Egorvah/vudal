@@ -14,6 +14,6 @@ gulp.task('default', () => {
         }))
         .pipe(gulp.dest('dist'));
 
-    gulp.src('src/vudal.vue')
+    gulp.src('src/*.vue')
         .pipe(gulp.dest('dist'));
 });
