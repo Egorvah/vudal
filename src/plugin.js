@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import 'proxy-polyfill/proxy.min';
 import isMobile from 'ismobilejs';
+import Vudal from './vudal.vue';
 
 function isFunction(object) {
   return typeof object === 'function';
@@ -254,6 +255,38 @@ export default {
         });
       }
 
+      /**
+       * Create alert window based on vudal
+       */
+      alert(message) {
+        const modal = new Vue({
+
+          render(h) {
+            return h(Vudal, { props: { name: 'alertModal' }, on: { hide: this.onOk } }, [
+              h('div', { class: 'header' }),
+              h('div', { class: 'content' }, [message]),
+              h('div', { class: 'actions' }, [
+                h('button', { class: 'vudal-btn', on: { click: this.onOk } }, ['OK']),
+              ]),
+            ]);
+          },
+
+          data() {
+            return { message };
+          },
+
+          methods: {
+            onOk() {
+              this.$destroy();
+              this.$modals.closeDimmer();
+            },
+          },
+        }).$mount();
+
+        Vue.nextTick(() => {
+          this.getModal('alertModal').$show();
+        });
+      }
     }
 
     const modal = new Modal();

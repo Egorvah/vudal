@@ -22,6 +22,10 @@ var _ismobilejs = require('ismobilejs');
 
 var _ismobilejs2 = _interopRequireDefault(_ismobilejs);
 
+var _vudal = require('./vudal.vue');
+
+var _vudal2 = _interopRequireDefault(_vudal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function isFunction(object) {
@@ -225,6 +229,32 @@ exports.default = {
 
           this.modals.forEach(function (modal) {
             _this3.setPosition(modal);
+          });
+        }
+      }, {
+        key: 'alert',
+        value: function alert(message) {
+          var _this4 = this;
+
+          var modal = new Vue({
+            render: function render(h) {
+              return h(_vudal2.default, { props: { name: 'alertModal' }, on: { hide: this.onOk } }, [h('div', { class: 'header' }), h('div', { class: 'content' }, [message]), h('div', { class: 'actions' }, [h('button', { class: 'vudal-btn', on: { click: this.onOk } }, ['OK'])])]);
+            },
+            data: function data() {
+              return { message: message };
+            },
+
+
+            methods: {
+              onOk: function onOk() {
+                this.$destroy();
+                this.$modals.closeDimmer();
+              }
+            }
+          }).$mount();
+
+          Vue.nextTick(function () {
+            _this4.getModal('alertModal').$show();
           });
         }
       }], [{

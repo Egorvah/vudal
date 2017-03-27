@@ -89,6 +89,10 @@
     border-bottom: 1px solid rgba(34,36,38,.15);
   }
 
+  .vudal.alert>.header {
+    border-bottom: none;
+  }
+
   .vudal>.header:not(.ui) {
     font-size: 1.3em;
     line-height: 1.2857em;
@@ -102,6 +106,10 @@
     line-height: 1.4;
     padding: 1.5rem;
     background: #FFF;
+  }
+
+  .vudal.alert>.content {
+    margin-bottom: 20px;
   }
 
   .vudal>.actions {
@@ -167,5 +175,52 @@
       right: 1rem;
       color: rgba(0,0,0,.87);
     }
+  }
+
+  .vudal-btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    font-size: 1em;
+    border-radius: .25rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+  }
+
+  .vudal-btn-primary {
+    color: #fff;
+    background-color: #0275d8;
+    border-color: #0275d8;
+  }
+
+  .vudal-btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+  }
+
+  .vudal-btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d9534f;
+  }
+
+  .vudal-btn-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
   }
 </style>
