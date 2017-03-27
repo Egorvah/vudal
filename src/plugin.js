@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import 'proxy-polyfill';
+import 'proxy-polyfill.min';
 import isMobile from 'ismobilejs';
 
 function isFunction(object) {
