@@ -16,7 +16,7 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-require('proxy-polyfill.min');
+require('proxy-polyfill/proxy.min');
 
 var _ismobilejs = require('ismobilejs');
 
