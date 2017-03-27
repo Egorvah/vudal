@@ -51,10 +51,10 @@ exports.default = {
 
   methods: {
     approve: function approve() {
+      this.$modals[this.name].$hide();
       this.$emit('approve');
     },
     cancel: function cancel() {
-      this.$modals[this.name].$hide();
       this.$emit('cancel');
     }
   }

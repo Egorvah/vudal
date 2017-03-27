@@ -42,11 +42,11 @@ export default {
 
   methods: {
     approve() {
+      this.$modals[this.name].$hide();
       this.$emit('approve');
     },
 
     cancel() {
-      this.$modals[this.name].$hide();
       this.$emit('cancel');
     },
   },
