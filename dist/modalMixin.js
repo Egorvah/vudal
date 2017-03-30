@@ -16,6 +16,10 @@ var _ismobilejs = require('ismobilejs');
 
 var _ismobilejs2 = _interopRequireDefault(_ismobilejs);
 
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -55,7 +59,7 @@ exports.default = {
 
     this.$modals.addModal(this);
 
-    $(this.$el).addClass('vudal').addClass('hide');
+    (0, _jquery2.default)(this.$el).addClass('vudal').addClass('hide');
 
     var options = {
       onHidden: function onHidden() {
@@ -132,16 +136,16 @@ exports.default = {
   watch: {
     isVisible: function isVisible(newVal) {
       if (newVal) {
-        $(this.$el).removeClass('hide').addClass('show');
+        (0, _jquery2.default)(this.$el).removeClass('hide').addClass('show');
       } else {
-        $(this.$el).removeClass('show').addClass('hide');
+        (0, _jquery2.default)(this.$el).removeClass('show').addClass('hide');
       }
     },
     isPhone: function isPhone(newVal) {
       if (newVal) {
-        $(this.$el).addClass('mobile');
+        (0, _jquery2.default)(this.$el).addClass('mobile');
       } else {
-        $(this.$el).removeClass('mobile');
+        (0, _jquery2.default)(this.$el).removeClass('mobile');
       }
     }
   }

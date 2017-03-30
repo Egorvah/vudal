@@ -1,19 +1,13 @@
 {
-    "extends": "airbnb-base",
+    "extends": "dq",
     "rules": {
-        "brace-style": [2, "stroustrup", { allowSingleLine: true}],
-        "func-names": 0,
-        "global-require": 0,
-        "no-console": 0,
         "import/no-unresolved": 0,
         "import/no-extraneous-dependencies": 0
     },
     "env": {
-        "browser": true,
         "jasmine": true
     },
     "plugins": [
-        "vue",
         "jasmine"
     ]
 }

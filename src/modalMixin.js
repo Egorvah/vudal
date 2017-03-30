@@ -1,6 +1,7 @@
 import objectAssign from 'object-assign';
 import elementResizeEvent from 'element-resize-event';
 import isMobile from 'ismobilejs';
+import $ from 'jquery';
 
 export default {
 
@@ -121,7 +122,7 @@ export default {
       else {
         $(this.$el).removeClass('mobile');
       }
-    }
+    },
   },
 
 };

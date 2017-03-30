@@ -259,7 +259,7 @@ export default {
        * Create alert window based on vudal
        */
       alert(message) {
-        const modal = new Vue({
+        new Vue({
 
           render(h) {
             return h(Vudal, { props: { name: 'alertModal' }, on: { hide: this.onOk } }, [

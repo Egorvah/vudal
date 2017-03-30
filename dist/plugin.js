@@ -236,7 +236,7 @@ exports.default = {
         value: function alert(message) {
           var _this4 = this;
 
-          var modal = new Vue({
+          new Vue({
             render: function render(h) {
               return h(_vudal2.default, { props: { name: 'alertModal' }, on: { hide: this.onOk } }, [h('div', { class: 'header' }), h('div', { class: 'content' }, [message]), h('div', { class: 'actions' }, [h('button', { class: 'vudal-btn', on: { click: this.onOk } }, ['OK'])])]);
             },
