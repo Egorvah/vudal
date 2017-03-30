@@ -40,10 +40,6 @@
     animation-duration: .5s;
     -webkit-transition: background-color .5s linear;
     transition: background-color .5s linear;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     will-change: opacity;
     z-index: 1000;
   }
