@@ -2,6 +2,8 @@
 
 Modal window component based on Semantic UI design. (Does not require semantic ui, it is completely independent)
 
+![Demo](https://raw.githubusercontent.com/Egorvah/vudal/master/demo.gif)
+
 Install plugin
 ```
 import { VudalPlugin } from 'vudal';
