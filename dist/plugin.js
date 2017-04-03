@@ -130,7 +130,7 @@ exports.default = {
 
           this.setPosition(modal);
 
-          var parentModal = this.getParentModal(modal);
+          var parentModal = this.getActiveParentModal(modal);
           if (parentModal) {
             (0, _jquery2.default)(parentModal.$el).addClass('child-active');
             setTimeout(function () {
@@ -154,7 +154,7 @@ exports.default = {
             this.closeDimmer();
           }
 
-          var parentModal = this.getParentModal(modal);
+          var parentModal = this.getActiveParentModal(modal);
           if (parentModal) {
             (0, _jquery2.default)(parentModal.$el).removeClass('child-active');
             (0, _jquery2.default)(parentModal.$el).unbind('click', modal.hide);
@@ -188,22 +188,28 @@ exports.default = {
           });
         }
       }, {
-        key: 'getParentModal',
-        value: function getParentModal(modal) {
-          if (modal.parentRef != null || modal.parent != null) {
-            var parentModal = this.modals.filter(function (m) {
-              if (m.$vnode) {
-                return m.$vnode.data.ref === modal.parentRef || modal.name != null && m.name === modal.parent;
-              }
-              return modal.name != null && m.name === modal.parent;
-            })[0];
-            if (parentModal) {
-              return parentModal;
-            }
-            return null;
-          }
+        key: 'getActiveParentModal',
+        value: function getActiveParentModal(modal) {
+          return this.getParentModals(modal).filter(function (m) {
+            return m.isVisible === true;
+          })[0];
+        }
+      }, {
+        key: 'getParentModals',
+        value: function getParentModals(modal) {
+          var _this3 = this;
 
-          return null;
+          console.log(modal.parents);
+          return modal.parents.map(function (parent) {
+            return _this3.modals.filter(function (m) {
+              if (m.$vnode) {
+                return m.$vnode.data.ref === parent || modal.name != null && m.name === parent;
+              }
+              return modal.name != null && m.name === parent;
+            })[0];
+          }).filter(function (m) {
+            return m != null;
+          });
         }
       }, {
         key: 'closeDimmer',
@@ -225,16 +231,16 @@ exports.default = {
       }, {
         key: 'resetPositions',
         value: function resetPositions() {
-          var _this3 = this;
+          var _this4 = this;
 
           this.modals.forEach(function (modal) {
-            _this3.setPosition(modal);
+            _this4.setPosition(modal);
           });
         }
       }, {
         key: 'alert',
         value: function alert(message) {
-          var _this4 = this;
+          var _this5 = this;
 
           new Vue({
             render: function render(h) {
@@ -254,7 +260,7 @@ exports.default = {
           }).$mount();
 
           Vue.nextTick(function () {
-            _this4.getModal('alertModal').$show();
+            _this5.getModal('alertModal').$show();
           });
         }
       }], [{

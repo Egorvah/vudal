@@ -33,12 +33,10 @@ exports.default = {
     },
 
     parentRef: {
-      type: String,
       default: null
     },
 
     parent: {
-      type: String,
       default: null
     },
 
@@ -106,6 +104,22 @@ exports.default = {
     },
     isPhone: function isPhone() {
       return _ismobilejs2.default.phone;
+    },
+    parents: function parents() {
+      if (this.parent != null) {
+        if (Array.isArray(this.parent)) {
+          return this.parent;
+        }
+        return [this.parent];
+      }
+      if (this.parentRef != null) {
+        if (Array.isArray(this.parentRef)) {
+          return this.parentRef;
+        }
+        return [this.parentRef];
+      }
+
+      return [];
     }
   },
 
