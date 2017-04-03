@@ -14,12 +14,10 @@ export default {
     },
 
     parentRef: {
-      type: String,
       default: null,
     },
 
     parent: {
-      type: String,
       default: null,
     },
 
@@ -74,6 +72,23 @@ export default {
 
     isPhone() {
       return isMobile.phone;
+    },
+
+    parents() {
+      if (this.parent != null) {
+        if (Array.isArray(this.parent)) {
+          return this.parent;
+        }
+        return [this.parent];
+      }
+      if (this.parentRef != null) {
+        if (Array.isArray(this.parentRef)) {
+          return this.parentRef;
+        }
+        return [this.parentRef];
+      }
+
+      return [];
     },
   },
 

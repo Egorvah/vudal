@@ -105,8 +105,8 @@ export default {
         // add center position
         this.setPosition(modal);
 
-        // if exist parent, disable action on parent modal
-        const parentModal = this.getParentModal(modal);
+        // if parent modal exists then add blur
+        const parentModal = this.getActiveParentModal(modal);
         if (parentModal) {
           $(parentModal.$el).addClass('child-active');
           setTimeout(() => {
@@ -128,8 +128,8 @@ export default {
           this.closeDimmer();
         }
 
-        // if exist parent, disable action on parent modal
-        const parentModal = this.getParentModal(modal);
+        // if parent exists then remove blur
+        const parentModal = this.etActiveParentModal(modal);
         if (parentModal) {
           $(parentModal.$el).removeClass('child-active');
           $(parentModal.$el).unbind('click', modal.hide);
@@ -158,22 +158,21 @@ export default {
         return this.modals.filter(m => modal.name != null && m.parent === modal.name);
       }
 
-      getParentModal(modal) {
-        if (modal.parentRef != null || modal.parent != null) {
-          const parentModal = this.modals.filter((m) => {
-            if (m.$vnode) {
-              return m.$vnode.data.ref === modal.parentRef ||
-                (modal.name != null && m.name === modal.parent);
-            }
-            return modal.name != null && m.name === modal.parent;
-          })[0];
-          if (parentModal) {
-            return parentModal;
-          }
-          return null;
-        }
+      getActiveParentModal(modal) {
+        return this.getParentModals(modal).filter(m => m.isVisible === true)[0];
+      }
 
-        return null;
+      getParentModals(modal) {
+        console.log(modal.parents);
+        return modal.parents.map((parent) => {
+          return this.modals.filter((m) => {
+            if (m.$vnode) {
+              return m.$vnode.data.ref === parent ||
+                (modal.name != null && m.name === parent);
+            }
+            return modal.name != null && m.name === parent;
+          })[0];
+        }).filter(m => m != null);
       }
 
       closeDimmer() {
