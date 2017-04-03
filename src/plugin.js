@@ -129,7 +129,7 @@ export default {
         }
 
         // if parent exists then remove blur
-        const parentModal = this.etActiveParentModal(modal);
+        const parentModal = this.getActiveParentModal(modal);
         if (parentModal) {
           $(parentModal.$el).removeClass('child-active');
           $(parentModal.$el).unbind('click', modal.hide);

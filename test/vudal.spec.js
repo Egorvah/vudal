@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { VudalPlugin, Vudal } from './../src/index';
+import $ from 'jquery';
 
 describe('vudal', () => {
   let root;
@@ -125,6 +126,32 @@ describe('vudal', () => {
         expect(childModal.$isActive).toEqual(false);
         expect(vm.$emit).toHaveBeenCalledWith('hide');
         expect(childModal.$emit).toHaveBeenCalledWith('hide');
+        done();
+      });
+    });
+
+    it('open modal with two parents', (done) => {
+      const secondModalRoot = new Vue({
+        template: '<vudal name="secondModal"></vudal>',
+        components: { Vudal },
+      }).$mount();
+      const secondModal = secondModalRoot.$children[0];
+
+      const childModalRoot = new Vue({
+        template: '<vudal name="childModal" :parent="[\'testModal\', \'secondModal\']"></vudal>',
+        components: { Vudal },
+      }).$mount();
+      const childModal = childModalRoot.$children[0];
+
+      secondModal.$show();
+      childModal.$show();
+
+      Vue.nextTick(() => {
+        expect(vm.$isActive).toEqual(false);
+        expect(secondModal.$isActive).toEqual(true);
+        expect(childModal.$isActive).toEqual(true);
+        expect($(vm.$el).hasClass('child-active')).toEqual(false);
+        expect($(secondModal.$el).hasClass('child-active')).toEqual(true);
         done();
       });
     });
