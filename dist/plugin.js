@@ -16,8 +16,6 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-require('proxy-polyfill/proxy.min');
-
 var _ismobilejs = require('ismobilejs');
 
 var _ismobilejs2 = _interopRequireDefault(_ismobilejs);
@@ -70,7 +68,13 @@ exports.default = {
             return;
           }
 
+          if (this[name] != null) {
+            console.error('Cannot use modal name "' + name + '", it is a reserved word');
+            return;
+          }
+
           this.modals.push(modal);
+          this[name] = modal;
 
           (0, _jquery2.default)(dimmerSelector).append((0, _jquery2.default)(modal.$el).detach());
         }
@@ -79,19 +83,14 @@ exports.default = {
         value: function removeModal(modal) {
           var _this = this;
 
-          var foundModal = this.modals.filter(function (m) {
-            return m.$el === modal.$el;
-          })[0];
+          var name = this.getModalName(modal);
 
-          if (!foundModal && modal.$vnode) {
-            foundModal = this.modals.filter(function (m) {
-              return m.$vnode && m.$vnode.data.ref === modal.$vnode.data.ref;
-            })[0];
-          }
+          var foundModal = this.getModal(name);
 
           if (foundModal) {
             var index = this.modals.indexOf(foundModal);
             this.modals.splice(index, 1);
+            delete this[name];
           }
 
           this.getChildrenModals(modal).forEach(function (childModal) {
@@ -333,21 +332,6 @@ exports.default = {
 
     var modal = new Modal();
 
-    var proxyModal = new Proxy(modal, {
-      get: function get(target, name) {
-        if (isFunction(target[name])) {
-          return target[name];
-        }
-
-        var foundModal = target.getModal(name);
-
-        if (foundModal != null) {
-          return foundModal;
-        }
-        return target[name];
-      }
-    });
-
-    Vue.prototype.$modals = proxyModal;
+    Vue.prototype.$modals = modal;
   }
 };

@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import 'proxy-polyfill/proxy.min';
 import isMobile from 'ismobilejs';
 import Vudal from './vudal.vue';
 
@@ -40,24 +39,27 @@ export default {
           return;
         }
 
+        if (this[name] != null) {
+          console.error(`Cannot use modal name "${name}", it is a reserved word`);
+          return;
+        }
+
         this.modals.push(modal);
+        this[name] = modal;
+
         // add modal to dimmer wrapper
         $(dimmerSelector).append($(modal.$el).detach());
       }
 
       removeModal(modal) {
+        const name = this.getModalName(modal);
         // remove from array modals
-        let foundModal = this.modals.filter(m => m.$el === modal.$el)[0];
-
-        if (!foundModal && modal.$vnode) {
-          foundModal = this.modals.filter(
-            m => m.$vnode && m.$vnode.data.ref === modal.$vnode.data.ref
-          )[0];
-        }
+        const foundModal = this.getModal(name);
 
         if (foundModal) {
           const index = this.modals.indexOf(foundModal);
           this.modals.splice(index, 1);
+          delete this[name];
         }
 
         // remove childs from DOM
@@ -289,23 +291,8 @@ export default {
     }
 
     const modal = new Modal();
-    // Define proxy for modals instance in order to get modal by name
-    const proxyModal = new Proxy(modal, {
-      get(target, name) {
-        if (isFunction(target[name])) {
-          return target[name];
-        }
-
-        const foundModal = target.getModal(name);
-
-        if (foundModal != null) {
-          return foundModal;
-        }
-        return target[name];
-      },
-    });
 
     // eslint-disable-next-line no-param-reassign
-    Vue.prototype.$modals = proxyModal;
+    Vue.prototype.$modals = modal;
   },
 };
