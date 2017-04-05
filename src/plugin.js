@@ -52,7 +52,7 @@ export default {
       }
 
       removeModal(modal) {
-        const name = this.getModalName(modal);
+        const name = Modal.getModalName(modal);
         // remove from array modals
         const foundModal = this.getModal(name);
 

@@ -83,7 +83,7 @@ exports.default = {
         value: function removeModal(modal) {
           var _this = this;
 
-          var name = this.getModalName(modal);
+          var name = Modal.getModalName(modal);
 
           var foundModal = this.getModal(name);
 
