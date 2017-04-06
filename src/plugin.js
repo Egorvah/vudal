@@ -165,7 +165,6 @@ export default {
       }
 
       getParentModals(modal) {
-        console.log(modal.parents);
         return modal.parents.map((parent) => {
           return this.modals.filter((m) => {
             if (m.$vnode) {
