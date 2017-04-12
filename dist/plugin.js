@@ -198,7 +198,6 @@ exports.default = {
         value: function getParentModals(modal) {
           var _this3 = this;
 
-          console.log(modal.parents);
           return modal.parents.map(function (parent) {
             return _this3.modals.filter(function (m) {
               if (m.$vnode) {
