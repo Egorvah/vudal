@@ -138,6 +138,7 @@ export default {
         }
 
         this.getChildrenModals(modal).forEach(childModal => childModal.hide());
+        $(modal.$el).removeClass('child-active');
       }
 
       hideAll() {
