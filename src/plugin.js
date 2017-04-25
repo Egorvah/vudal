@@ -214,13 +214,12 @@ export default {
         if (hideModalsOnDimmerClick) {
           // close all modals when clickling on dimmer
           $(document).on('click', dimmerSelector, () => {
+            if(event.target != $(dimmerSelector).get(0)) {
+              return;
+            }
             Vue.prototype.$modals.hideAll();
           });
         }
-
-        $(document).on('click', modalSelector, (event) => {
-          event.stopPropagation();
-        });
 
         // hide modals when clicking on back button
         $(window).on('popstate', () => {

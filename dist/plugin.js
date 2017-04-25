@@ -162,6 +162,7 @@ exports.default = {
           this.getChildrenModals(modal).forEach(function (childModal) {
             return childModal.hide();
           });
+          (0, _jquery2.default)(modal.$el).removeClass('child-active');
         }
       }, {
         key: 'hideAll',
@@ -291,13 +292,12 @@ exports.default = {
 
           if (hideModalsOnDimmerClick) {
             (0, _jquery2.default)(document).on('click', dimmerSelector, function () {
+              if (event.target != (0, _jquery2.default)(dimmerSelector).get(0)) {
+                return;
+              }
               Vue.prototype.$modals.hideAll();
             });
           }
-
-          (0, _jquery2.default)(document).on('click', modalSelector, function (event) {
-            event.stopPropagation();
-          });
 
           (0, _jquery2.default)(window).on('popstate', function () {
             if ((0, _jquery2.default)(dimmerSelector).hasClass('show')) {
