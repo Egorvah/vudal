@@ -45,9 +45,9 @@ export default {
 
     cancelClass() {
       if (this.cancelBtnClass != null) {
-        return this.cancelBtnClass;
+        return `${this.cancelBtnClass} cancel`;
       }
-      return `vudal-btn vudal-btn-${this.cancelBtnColor}`;
+      return `vudal-btn vudal-btn-${this.cancelBtnColor} cancel`;
     },
   },
 
