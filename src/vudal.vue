@@ -66,6 +66,11 @@
     width: 90%;
   }
 
+  .vudal.narrow {
+    width: auto;
+    min-width: 250px;
+  }
+
   .vudal.show {
     display: block;
   }
@@ -93,6 +98,14 @@
     font-size: 1.3em;
     line-height: 1.2857em;
     font-weight: 700;
+  }
+
+  .vudal>.header.center {
+    text-align: center;
+  }
+
+  .vudal>.header.main {
+    margin-top: 17px;
   }
 
   .vudal>.content {

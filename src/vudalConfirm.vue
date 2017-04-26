@@ -1,14 +1,11 @@
 <template>
-  <vudal :name="name">
-    <div class="header">
-      {{ heading }}
-    </div>
-    <div class="content">
+  <vudal :name="name" class="narrow">
+    <div class="header main center">
       <slot></slot>
     </div>
     <div class="actions">
-      <button type="button" class="vudal-btn cancel" :class="cancelBtnClass" @click.prevent="cancel()">{{ cancelLabel }}</button>
-      <button type="button" class="vudal-btn" :class="approveBtnClass" @click.prevent="approve()">{{ approveLabel }}</button>
+      <button type="button" class="cancel" :class="cancelClass" @click.prevent="cancel()">{{ cancelLabel }}</button>
+      <button type="button" class="" :class="approveClass" @click.prevent="approve()">{{ approveLabel }}</button>
     </div>
   </vudal>
 </template>

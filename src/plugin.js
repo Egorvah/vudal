@@ -262,9 +262,8 @@ export default {
         new Vue({
 
           render(h) {
-            return h(Vudal, { props: { name: 'alertModal' }, on: { hide: this.onOk } }, [
-              h('div', { class: 'header' }),
-              h('div', { class: 'content' }, [message]),
+            return h(Vudal, { class: 'narrow', props: { name: 'alertModal' }, on: { hide: this.onOk } }, [
+              h('div', { class: 'header main center' }, [message]),
               h('div', { class: 'actions' }, [
                 h('button', { class: 'vudal-btn', on: { click: this.onOk } }, ['OK']),
               ]),

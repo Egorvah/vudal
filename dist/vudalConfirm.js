@@ -28,24 +28,36 @@ exports.default = {
       type: String,
       default: 'Cancel'
     },
-    approveBtnColor: {
-      type: String,
-      default: 'primary'
+    approveBtnClass: {
+      type: String
     },
-    cancelBtnColor: {
-      type: String,
-      default: 'default'
+    cancelBtnClass: {
+      type: String
     }
   },
 
   components: { Vudal: _vudal2.default },
 
+  data: function data() {
+    return {
+      approveBtnColor: 'primary',
+      cancelBtnColor: 'default'
+    };
+  },
+
+
   computed: {
-    approveBtnClass: function approveBtnClass() {
-      return 'vudal-btn-' + this.approveBtnColor;
+    approveClass: function approveClass() {
+      if (this.approveBtnClass != null) {
+        return this.approveBtnClass;
+      }
+      return 'vudal-btn vudal-btn-' + this.approveBtnColor;
     },
-    cancelBtnClass: function cancelBtnClass() {
-      return 'vudal-btn-' + this.cancelBtnColor;
+    cancelClass: function cancelClass() {
+      if (this.cancelBtnClass != null) {
+        return this.cancelBtnColor;
+      }
+      return 'vudal-btn vudal-btn-' + this.cancelBtnColor;
     }
   },
 
