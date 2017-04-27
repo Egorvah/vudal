@@ -62,6 +62,11 @@ export default {
           delete this[name];
         }
 
+        // hide dimmer if all modals hidden
+        if (!this.hasActiveModals) {
+          this.closeDimmer();
+        }
+
         // remove childs from DOM
         this.getChildrenModals(modal).forEach(childModal => this.removeModal(childModal));
 
@@ -124,9 +129,8 @@ export default {
         $(modal.$el).removeAttr('style');
         modal.internalOptions.onHidden();
 
-        const activeModal = this.modals.filter(m => m.isVisible)[0];
         // hide dimmer if all modals hidden
-        if (!activeModal) {
+        if (!this.hasActiveModals) {
           this.closeDimmer();
         }
 
@@ -139,6 +143,14 @@ export default {
 
         this.getChildrenModals(modal).forEach(childModal => childModal.hide());
         $(modal.$el).removeClass('child-active');
+      }
+
+      get activeModals() {
+        return this.modals.filter(modal => modal.isVisible);
+      }
+
+      get hasActiveModals() {
+        return this.activeModals.length > 0;
       }
 
       hideAll() {

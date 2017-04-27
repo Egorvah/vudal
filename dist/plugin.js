@@ -93,6 +93,10 @@ exports.default = {
             delete this[name];
           }
 
+          if (!this.hasActiveModals) {
+            this.closeDimmer();
+          }
+
           this.getChildrenModals(modal).forEach(function (childModal) {
             return _this.removeModal(childModal);
           });
@@ -145,11 +149,7 @@ exports.default = {
           (0, _jquery2.default)(modal.$el).removeAttr('style');
           modal.internalOptions.onHidden();
 
-          var activeModal = this.modals.filter(function (m) {
-            return m.isVisible;
-          })[0];
-
-          if (!activeModal) {
+          if (!this.hasActiveModals) {
             this.closeDimmer();
           }
 
@@ -261,6 +261,18 @@ exports.default = {
           Vue.nextTick(function () {
             _this5.getModal('alertModal').$show();
           });
+        }
+      }, {
+        key: 'activeModals',
+        get: function get() {
+          return this.modals.filter(function (modal) {
+            return modal.isVisible;
+          });
+        }
+      }, {
+        key: 'hasActiveModals',
+        get: function get() {
+          return this.activeModals.length > 0;
         }
       }], [{
         key: 'getModalName',
