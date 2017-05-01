@@ -9,6 +9,7 @@
 
   body.no-scroll {
     overflow: hidden;
+    position: fixed;
   }
 
   .modals.dimmer .ui.modal.mobile
