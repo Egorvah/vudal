@@ -46,6 +46,7 @@ exports.default = {
         this.modals = [];
         this.refreshOnResize = true;
         this.lastLayer = defaultLayer;
+        this.contentPosition = null;
       }
 
       (0, _createClass3.default)(Modal, [{
@@ -126,7 +127,11 @@ exports.default = {
       }, {
         key: 'onShow',
         value: function onShow(modal) {
-          (0, _jquery2.default)('body').addClass('no-scroll');
+          if (this.contentPosition === null) {
+            this.contentPosition = (0, _jquery2.default)('body').scrollTop();
+          }
+
+          (0, _jquery2.default)('body').addClass('no-scroll').css('top', '-' + this.contentPosition + 'px');
           (0, _jquery2.default)(dimmerSelector).addClass('show');
 
           (0, _jquery2.default)(modal.$el).css('z-index', this.getNewLayer());
@@ -213,10 +218,16 @@ exports.default = {
       }, {
         key: 'closeDimmer',
         value: function closeDimmer() {
-          (0, _jquery2.default)('body').removeClass('no-scroll');
+          (0, _jquery2.default)('body').removeClass('no-scroll').removeAttr('style');
           (0, _jquery2.default)(dimmerSelector).removeClass('show');
 
           this.lastLayer = defaultLayer;
+
+          if (this.contentPosition != null) {
+            (0, _jquery2.default)('body').scrollTop(this.contentPosition);
+
+            this.contentPosition = null;
+          }
         }
       }, {
         key: 'setPosition',

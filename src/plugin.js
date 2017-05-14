@@ -20,6 +20,7 @@ export default {
         this.modals = [];
         this.refreshOnResize = true;
         this.lastLayer = defaultLayer;
+        this.contentPosition = null;
       }
 
       getNewLayer() {
@@ -103,7 +104,11 @@ export default {
       }
 
       onShow(modal) {
-        $('body').addClass('no-scroll');
+        if (this.contentPosition === null) {
+          this.contentPosition = $('body').scrollTop();
+        }
+
+        $('body').addClass('no-scroll').css('top', `-${this.contentPosition}px`);
         $(dimmerSelector).addClass('show');
 
         // add layer index
@@ -190,10 +195,16 @@ export default {
       }
 
       closeDimmer() {
-        $('body').removeClass('no-scroll');
+        $('body').removeClass('no-scroll').removeAttr('style');
         $(dimmerSelector).removeClass('show');
         // set to default layer value
         this.lastLayer = defaultLayer;
+
+        if (this.contentPosition != null) {
+          $('body').scrollTop(this.contentPosition);
+          // reset content scroll height
+          this.contentPosition = null;
+        }
       }
 
       static camelCase(string) {
