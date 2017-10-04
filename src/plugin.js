@@ -6,8 +6,19 @@ function isFunction(object) {
   return typeof object === 'function';
 }
 
+const defaultOptions = {
+  confirm: {
+    style: 'normal',
+    approveLabel: 'Approve',
+    cancelLabel: 'Cancel',
+    approveBtnClass: 'vudal-btn vudal-btn-primary',
+    cancelBtnClass: 'vudal-btn vudal-btn-default',
+  },
+};
+
 export default {
   install: (Vue, options = {}) => {
+    const opts = $.extend(true, {}, defaultOptions, options);
     const defaultLayer = 1000;
     const dimmerSelector = '.vudal-dimmer';
     const modalSelector = '.vudal';
@@ -309,6 +320,92 @@ export default {
           this.getModal('alertModal').$show();
         });
       }
+
+      /**
+       * Create confirmation window based on vudal
+       */
+      confirm(params = {}) {
+        const {
+          message,
+          onApprove,
+          onCancel,
+        } = params;
+
+        let {
+          approveLabel,
+          cancelLabel,
+          approveBtnClass,
+          cancelBtnClass,
+          parent,
+          style,
+        } = params;
+
+        if (approveLabel == null) {
+          approveLabel = opts.confirm.approveLabel;
+        }
+
+        if (cancelLabel == null) {
+          cancelLabel = opts.confirm.cancelLabel;
+        }
+
+        if (approveBtnClass == null) {
+          approveBtnClass = opts.confirm.approveBtnClass;
+        }
+
+        if (cancelBtnClass == null) {
+          cancelBtnClass = opts.confirm.cancelBtnClass;
+        }
+
+        if (style == null || ['narrow', 'normal', 'wide'].indexOf(style) === -1) {
+          style = opts.confirm.style;
+        }
+
+        if (style === 'normal') {
+          style = '';
+        }
+
+        new Vue({
+
+          render(h) {
+            return h(Vudal, { class: style, props: { name: 'confirmModal', parent }, on: { hide: this.closeVudal } }, [
+              h('div', { class: 'header main center' }, [message]),
+              h('div', { class: 'actions' }, [
+                h('button', { class: approveBtnClass, on: { click: this.onApprove }, style: { marginLeft: '5px' } }, [approveLabel]),
+                h('button', { class: cancelBtnClass, on: { click: this.onCancel }, style: { marginLeft: '5px' } }, [cancelLabel]),
+              ]),
+            ]);
+          },
+
+          data() {
+            return { message };
+          },
+
+          methods: {
+            onApprove() {
+              if (onApprove != null) {
+                onApprove();
+              }
+              this.$modals.confirmModal.$hide();
+            },
+
+            onCancel() {
+              if (onCancel != null) {
+                onCancel();
+              }
+              this.$modals.confirmModal.$hide();
+            },
+
+            closeVudal() {
+              this.$destroy();
+              // this.$modals.closeDimmer();
+            },
+          },
+        }).$mount();
+
+        Vue.nextTick(() => {
+          this.getModal('confirmModal').$show();
+        });
+      }
     }
 
     const modal = new Modal();
@@ -318,7 +415,7 @@ export default {
     Vue.mixin({
       data() {
         return {
-          $modal: modal
+          $modal: modal,
         };
       },
     });

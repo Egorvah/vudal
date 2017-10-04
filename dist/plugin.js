@@ -30,10 +30,21 @@ function isFunction(object) {
   return typeof object === 'function';
 }
 
+var defaultOptions = {
+  confirm: {
+    style: 'normal',
+    approveLabel: 'Approve',
+    cancelLabel: 'Cancel',
+    approveBtnClass: 'vudal-btn vudal-btn-primary',
+    cancelBtnClass: 'vudal-btn vudal-btn-default'
+  }
+};
+
 exports.default = {
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
+    var opts = _jquery2.default.extend(true, {}, defaultOptions, options);
     var defaultLayer = 1000;
     var dimmerSelector = '.vudal-dimmer';
     var modalSelector = '.vudal';
@@ -271,6 +282,79 @@ exports.default = {
 
           Vue.nextTick(function () {
             _this5.getModal('alertModal').$show();
+          });
+        }
+      }, {
+        key: 'confirm',
+        value: function confirm() {
+          var _this6 = this;
+
+          var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+          var message = params.message,
+              _onApprove = params.onApprove,
+              _onCancel = params.onCancel;
+          var approveLabel = params.approveLabel,
+              cancelLabel = params.cancelLabel,
+              approveBtnClass = params.approveBtnClass,
+              cancelBtnClass = params.cancelBtnClass,
+              parent = params.parent,
+              style = params.style;
+
+
+          if (approveLabel == null) {
+            approveLabel = opts.confirm.approveLabel;
+          }
+
+          if (cancelLabel == null) {
+            cancelLabel = opts.confirm.cancelLabel;
+          }
+
+          if (approveBtnClass == null) {
+            approveBtnClass = opts.confirm.approveBtnClass;
+          }
+
+          if (cancelBtnClass == null) {
+            cancelBtnClass = opts.confirm.cancelBtnClass;
+          }
+
+          if (style == null || ['narrow', 'normal', 'wide'].indexOf(style) === -1) {
+            style = opts.confirm.style;
+          }
+
+          if (style === 'normal') {
+            style = '';
+          }
+
+          new Vue({
+            render: function render(h) {
+              return h(_vudal2.default, { class: style, props: { name: 'confirmModal', parent: parent }, on: { hide: this.closeVudal } }, [h('div', { class: 'header main center' }, [message]), h('div', { class: 'actions' }, [h('button', { class: approveBtnClass, on: { click: this.onApprove }, style: { marginLeft: '5px' } }, [approveLabel]), h('button', { class: cancelBtnClass, on: { click: this.onCancel }, style: { marginLeft: '5px' } }, [cancelLabel])])]);
+            },
+            data: function data() {
+              return { message: message };
+            },
+
+
+            methods: {
+              onApprove: function onApprove() {
+                if (_onApprove != null) {
+                  _onApprove();
+                }
+                this.$modals.confirmModal.$hide();
+              },
+              onCancel: function onCancel() {
+                if (_onCancel != null) {
+                  _onCancel();
+                }
+                this.$modals.confirmModal.$hide();
+              },
+              closeVudal: function closeVudal() {
+                this.$destroy();
+              }
+            }
+          }).$mount();
+
+          Vue.nextTick(function () {
+            _this6.getModal('confirmModal').$show();
           });
         }
       }, {
