@@ -25,6 +25,11 @@ export default {
       type: String,
       default: null,
     },
+
+    closeByEsc: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {

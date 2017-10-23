@@ -169,8 +169,12 @@ export default {
         return this.activeModals.length > 0;
       }
 
-      hideAll() {
+      hideAll(byEsc = false) {
         this.modals.forEach((modal) => {
+          if (!byEsc || (byEsc && !modal.closeByEsc)) {
+            return;
+          }
+
           if (modal.isVisible) {
             modal.hide();
           }
@@ -267,7 +271,7 @@ export default {
         // hide modals on esc
         $(window).on('keyup', (event) => {
           if ($(dimmerSelector).hasClass('show') && event.keyCode === 27) {
-            Vue.prototype.$modals.hideAll();
+            Vue.prototype.$modals.hideAll(true);
           }
         });
 

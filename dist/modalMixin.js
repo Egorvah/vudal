@@ -43,6 +43,11 @@ exports.default = {
     name: {
       type: String,
       default: null
+    },
+
+    closeByEsc: {
+      type: Boolean,
+      default: true
     }
   },
 
