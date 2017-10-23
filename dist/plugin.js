@@ -249,6 +249,9 @@ exports.default = {
       }, {
         key: 'setPosition',
         value: function setPosition(modal) {
+          if (!modal.autoCenter) {
+            return;
+          }
           setTimeout(function () {
             var marginTop = (0, _jquery2.default)(window).height() - 50 < (0, _jquery2.default)(modal.$el).height() ? (0, _jquery2.default)(window).height() / 2 - 50 : (0, _jquery2.default)(modal.$el).height() / 2;
             var marginLeft = (0, _jquery2.default)(modal.$el).width() / 2;

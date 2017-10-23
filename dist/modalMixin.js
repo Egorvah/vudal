@@ -48,6 +48,11 @@ exports.default = {
     closeByEsc: {
       type: Boolean,
       default: true
+    },
+
+    autoCenter: {
+      type: Boolean,
+      default: true
     }
   },
 

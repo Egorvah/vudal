@@ -230,6 +230,9 @@ export default {
 
       // eslint-disable-next-line class-methods-use-this
       setPosition(modal) {
+        if (!modal.autoCenter) {
+          return;
+        }
         setTimeout(() => {
           const marginTop = ($(window).height() - 50) < $(modal.$el).height()
             ? ($(window).height() / 2) - 50

@@ -30,6 +30,11 @@ export default {
       type: Boolean,
       default: true,
     },
+
+    autoCenter: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {
