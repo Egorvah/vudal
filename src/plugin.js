@@ -419,12 +419,5 @@ export default {
 
     // eslint-disable-next-line no-param-reassign
     Vue.prototype.$modals = modal;
-    Vue.mixin({
-      data() {
-        return {
-          $modal: modal,
-        };
-      },
-    });
   },
 };

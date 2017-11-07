@@ -448,12 +448,5 @@ exports.default = {
     var modal = new Modal();
 
     Vue.prototype.$modals = modal;
-    Vue.mixin({
-      data: function data() {
-        return {
-          $modal: modal
-        };
-      }
-    });
   }
 };
