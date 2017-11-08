@@ -3,4 +3,4 @@ import VudalConfirm from './vudalConfirm.vue';
 import VudalPlugin from './plugin';
 
 export default Vudal;
-export { Vudal, VudalPlugin, VudalConfirm };
+export { VudalPlugin, VudalConfirm };

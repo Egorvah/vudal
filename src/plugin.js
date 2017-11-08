@@ -2,9 +2,6 @@ import $ from 'jquery';
 import isMobile from 'ismobilejs';
 import Vudal from './vudal.vue';
 
-function isFunction(object) {
-  return typeof object === 'function';
-}
 
 const defaultOptions = {
   confirm: {
@@ -21,7 +18,6 @@ export default {
     const opts = $.extend(true, {}, defaultOptions, options);
     const defaultLayer = 1000;
     const dimmerSelector = '.vudal-dimmer';
-    const modalSelector = '.vudal';
     const hideModalsOnDimmerClick = options.hideModalsOnDimmerClick != null
       ? options.hideModalsOnDimmerClick
       : true;
@@ -198,15 +194,15 @@ export default {
       }
 
       getParentModals(modal) {
-        return modal.parents.map((parent) => {
-          return this.modals.filter((m) => {
+        return modal.parents.map(parent =>
+          this.modals.filter((m) => {
             if (m.$vnode) {
               return m.$vnode.data.ref === parent ||
                 (modal.name != null && m.name === parent);
             }
             return modal.name != null && m.name === parent;
-          })[0];
-        }).filter(m => m != null);
+          })[0]
+        ).filter(m => m != null);
       }
 
       closeDimmer() {
@@ -255,7 +251,7 @@ export default {
         if (hideModalsOnDimmerClick) {
           // close all modals when clickling on dimmer
           $(document).on('click', dimmerSelector, () => {
-            if(event.target != $(dimmerSelector).get(0)) {
+            if (event.target !== $(dimmerSelector).get(0)) {
               return;
             }
             Vue.prototype.$modals.hideAll();
@@ -336,6 +332,7 @@ export default {
           message,
           onApprove,
           onCancel,
+          parent,
         } = params;
 
         let {
@@ -343,7 +340,6 @@ export default {
           cancelLabel,
           approveBtnClass,
           cancelBtnClass,
-          parent,
           style,
         } = params;
 
