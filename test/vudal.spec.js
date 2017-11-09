@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import $ from 'jquery';
-import { VudalPlugin, Vudal } from './../src/index';
+import Vudal, { VudalPlugin } from './../src/index';
 
 describe('vudal', () => {
   let root;

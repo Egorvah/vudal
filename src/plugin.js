@@ -129,7 +129,7 @@ export default {
         if (parentModal) {
           $(parentModal.$el).addClass('child-active');
           setTimeout(() => {
-            $(parentModal.$el).bind('click', modal.hide);
+            $(parentModal.$el).on('click', modal.hide);
           }, 150);
         }
 
@@ -141,20 +141,21 @@ export default {
         $(modal.$el).removeAttr('style');
         modal.internalOptions.onHidden();
 
+        // if parent exists then remove blur
+        this.getParentModals(modal).forEach((parentModal) => {
+          if (parentModal) {
+            $(parentModal.$el).removeClass('child-active');
+            $(parentModal.$el).off('click', modal.hide);
+          }
+        });
+
+        this.getChildrenModals(modal).forEach(childModal => childModal.hide());
+        $(modal.$el).removeClass('child-active');
+
         // hide dimmer if all modals hidden
         if (!this.hasActiveModals) {
           this.closeDimmer();
         }
-
-        // if parent exists then remove blur
-        const parentModal = this.getActiveParentModal(modal);
-        if (parentModal) {
-          $(parentModal.$el).removeClass('child-active');
-          $(parentModal.$el).unbind('click', modal.hide);
-        }
-
-        this.getChildrenModals(modal).forEach(childModal => childModal.hide());
-        $(modal.$el).removeClass('child-active');
       }
 
       get activeModals() {
@@ -165,15 +166,13 @@ export default {
         return this.activeModals.length > 0;
       }
 
-      hideAll(byEsc = false) {
+      hideAll() {
         this.modals.forEach((modal) => {
-          if (!byEsc || (byEsc && !modal.closeByEsc)) {
+          if(!modal.isVisible) {
             return;
           }
 
-          if (modal.isVisible) {
-            modal.hide();
-          }
+          modal.hide();
         });
         this.closeDimmer();
       }
@@ -270,7 +269,7 @@ export default {
         // hide modals on esc
         $(window).on('keyup', (event) => {
           if ($(dimmerSelector).hasClass('show') && event.keyCode === 27) {
-            Vue.prototype.$modals.hideAll(true);
+            Vue.prototype.$modals.activeModals.filter(modal => modal.closeByEsc).forEach(modal => modal.hide());
           }
         });
 

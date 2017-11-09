@@ -1,7 +1,7 @@
 // we can just use the exact same webpack config by requiring it
 // however, remember to delete the original entry since we don't
 // need it during tests
-var webpackConfig = require('./webpack.config.js')
+var webpackConfig = require('./webpack.test.config.js')
 delete webpackConfig.entry
 
 // karma.conf.js

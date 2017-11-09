@@ -9,11 +9,11 @@ config = {
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loader: 'babel',
+        loader: 'babel-loader',
       },
       {
         test: /\.(png|jpg|svg|ttf|eot|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file?name=[path][name].[ext]'
+        loader: 'file-loader?name=[path][name].[ext]'
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -21,13 +21,9 @@ config = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue'
+        loader: 'vue-loader'
       },
     ]
-  },
-
-  vue: {
-    esModule: true,
   },
 
   plugins: [
@@ -35,12 +31,17 @@ config = {
       $: "jquery",
       jQuery: "jquery"
     }),
+    new webpack.LoaderOptionsPlugin({
+      vue: {
+        esModule: true,
+      }
+    }),
   ],
 
   devtool: 'inline-source-map',
 
   resolve: {
-    extensions: ['', '.js', '.vue', '.json', '.min.js'],
+    extensions: ['.js', '.vue', '.json', '.min.js'],
     alias: {
       spec_helper: path.join(__dirname, 'test', 'spec_helper'),
       vue: path.join(__dirname, 'node_modules', 'vue', 'dist', 'vue.js'),
