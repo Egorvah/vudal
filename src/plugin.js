@@ -2,9 +2,6 @@ import $ from 'jquery';
 import isMobile from 'ismobilejs';
 import Vudal from './vudal.vue';
 
-function isFunction(object) {
-  return typeof object === 'function';
-}
 
 const defaultOptions = {
   confirm: {
@@ -21,7 +18,6 @@ export default {
     const opts = $.extend(true, {}, defaultOptions, options);
     const defaultLayer = 1000;
     const dimmerSelector = '.vudal-dimmer';
-    const modalSelector = '.vudal';
     const hideModalsOnDimmerClick = options.hideModalsOnDimmerClick != null
       ? options.hideModalsOnDimmerClick
       : true;
@@ -133,7 +129,7 @@ export default {
         if (parentModal) {
           $(parentModal.$el).addClass('child-active');
           setTimeout(() => {
-            $(parentModal.$el).bind('click', modal.hide);
+            $(parentModal.$el).on('click', modal.hide);
           }, 150);
         }
 
@@ -145,20 +141,21 @@ export default {
         $(modal.$el).removeAttr('style');
         modal.internalOptions.onHidden();
 
+        // if parent exists then remove blur
+        this.getParentModals(modal).forEach((parentModal) => {
+          if (parentModal) {
+            $(parentModal.$el).removeClass('child-active');
+            $(parentModal.$el).off('click', modal.hide);
+          }
+        });
+
+        this.getChildrenModals(modal).forEach(childModal => childModal.hide());
+        $(modal.$el).removeClass('child-active');
+
         // hide dimmer if all modals hidden
         if (!this.hasActiveModals) {
           this.closeDimmer();
         }
-
-        // if parent exists then remove blur
-        const parentModal = this.getActiveParentModal(modal);
-        if (parentModal) {
-          $(parentModal.$el).removeClass('child-active');
-          $(parentModal.$el).unbind('click', modal.hide);
-        }
-
-        this.getChildrenModals(modal).forEach(childModal => childModal.hide());
-        $(modal.$el).removeClass('child-active');
       }
 
       get activeModals() {
@@ -169,15 +166,13 @@ export default {
         return this.activeModals.length > 0;
       }
 
-      hideAll(byEsc = false) {
+      hideAll() {
         this.modals.forEach((modal) => {
-          if (!byEsc || (byEsc && !modal.closeByEsc)) {
+          if(!modal.isVisible) {
             return;
           }
 
-          if (modal.isVisible) {
-            modal.hide();
-          }
+          modal.hide();
         });
         this.closeDimmer();
       }
@@ -198,15 +193,15 @@ export default {
       }
 
       getParentModals(modal) {
-        return modal.parents.map((parent) => {
-          return this.modals.filter((m) => {
+        return modal.parents.map(parent =>
+          this.modals.filter((m) => {
             if (m.$vnode) {
               return m.$vnode.data.ref === parent ||
                 (modal.name != null && m.name === parent);
             }
             return modal.name != null && m.name === parent;
-          })[0];
-        }).filter(m => m != null);
+          })[0]
+        ).filter(m => m != null);
       }
 
       closeDimmer() {
@@ -255,7 +250,7 @@ export default {
         if (hideModalsOnDimmerClick) {
           // close all modals when clickling on dimmer
           $(document).on('click', dimmerSelector, () => {
-            if(event.target != $(dimmerSelector).get(0)) {
+            if (event.target !== $(dimmerSelector).get(0)) {
               return;
             }
             Vue.prototype.$modals.hideAll();
@@ -274,7 +269,7 @@ export default {
         // hide modals on esc
         $(window).on('keyup', (event) => {
           if ($(dimmerSelector).hasClass('show') && event.keyCode === 27) {
-            Vue.prototype.$modals.hideAll(true);
+            Vue.prototype.$modals.activeModals.filter(modal => modal.closeByEsc).forEach(modal => modal.hide());
           }
         });
 
@@ -336,6 +331,7 @@ export default {
           message,
           onApprove,
           onCancel,
+          parent,
         } = params;
 
         let {
@@ -343,7 +339,6 @@ export default {
           cancelLabel,
           approveBtnClass,
           cancelBtnClass,
-          parent,
           style,
         } = params;
 

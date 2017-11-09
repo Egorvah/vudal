@@ -112,7 +112,7 @@
 
   .vudal>.content {
     display: block;
-    width: 100%;
+    /*width: 100%;*/
     font-size: 1em;
     line-height: 1.4;
     padding: 1.5rem;

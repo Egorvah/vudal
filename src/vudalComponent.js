@@ -23,4 +23,15 @@ export default {
     });
   },
 
+  watch: {
+    isVisible(newVal) {
+      if (newVal) {
+        $(this.$el).removeClass('vudal-fade-out').addClass('vudal-fade-in');
+      }
+      else {
+        $(this.$el).removeClass('vudal-fade-in').addClass('vudal-fade-out');
+      }
+    },
+  },
+
 };
