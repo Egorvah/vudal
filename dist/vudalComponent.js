@@ -29,7 +29,7 @@ exports.default = {
       _this.hide();
     });
 
-    (0, _jquery2.default)(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative, close-modal', function () {
+    (0, _jquery2.default)(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative, .close-modal', function () {
       _this.hide();
     });
   },

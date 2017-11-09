@@ -18,7 +18,7 @@ export default {
       this.hide();
     });
 
-    $(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative, close-modal', () => {
+    $(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative, .close-modal', () => {
       this.hide();
     });
   },
