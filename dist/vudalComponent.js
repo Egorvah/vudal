@@ -29,8 +29,20 @@ exports.default = {
       _this.hide();
     });
 
-    (0, _jquery2.default)(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative', function () {
+    (0, _jquery2.default)(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative, close-modal', function () {
       _this.hide();
     });
+  },
+
+
+  watch: {
+    isVisible: function isVisible(newVal) {
+      if (newVal) {
+        (0, _jquery2.default)(this.$el).removeClass('vudal-fade-out').addClass('vudal-fade-in');
+      } else {
+        (0, _jquery2.default)(this.$el).removeClass('vudal-fade-in').addClass('vudal-fade-out');
+      }
+    }
   }
+
 };

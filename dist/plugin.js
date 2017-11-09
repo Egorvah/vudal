@@ -26,10 +26,6 @@ var _vudal2 = _interopRequireDefault(_vudal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function isFunction(object) {
-  return typeof object === 'function';
-}
-
 var defaultOptions = {
   confirm: {
     style: 'normal',
@@ -47,7 +43,6 @@ exports.default = {
     var opts = _jquery2.default.extend(true, {}, defaultOptions, options);
     var defaultLayer = 1000;
     var dimmerSelector = '.vudal-dimmer';
-    var modalSelector = '.vudal';
     var hideModalsOnDimmerClick = options.hideModalsOnDimmerClick != null ? options.hideModalsOnDimmerClick : true;
 
     var Modal = function () {
@@ -153,7 +148,7 @@ exports.default = {
           if (parentModal) {
             (0, _jquery2.default)(parentModal.$el).addClass('child-active');
             setTimeout(function () {
-              (0, _jquery2.default)(parentModal.$el).bind('click', modal.hide);
+              (0, _jquery2.default)(parentModal.$el).on('click', modal.hide);
             }, 150);
           }
 
@@ -165,34 +160,31 @@ exports.default = {
           (0, _jquery2.default)(modal.$el).removeAttr('style');
           modal.internalOptions.onHidden();
 
-          if (!this.hasActiveModals) {
-            this.closeDimmer();
-          }
-
-          var parentModal = this.getActiveParentModal(modal);
-          if (parentModal) {
-            (0, _jquery2.default)(parentModal.$el).removeClass('child-active');
-            (0, _jquery2.default)(parentModal.$el).unbind('click', modal.hide);
-          }
+          this.getParentModals(modal).forEach(function (parentModal) {
+            if (parentModal) {
+              (0, _jquery2.default)(parentModal.$el).removeClass('child-active');
+              (0, _jquery2.default)(parentModal.$el).off('click', modal.hide);
+            }
+          });
 
           this.getChildrenModals(modal).forEach(function (childModal) {
             return childModal.hide();
           });
           (0, _jquery2.default)(modal.$el).removeClass('child-active');
+
+          if (!this.hasActiveModals) {
+            this.closeDimmer();
+          }
         }
       }, {
         key: 'hideAll',
         value: function hideAll() {
-          var byEsc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
           this.modals.forEach(function (modal) {
-            if (!byEsc || byEsc && !modal.closeByEsc) {
+            if (!modal.isVisible) {
               return;
             }
 
-            if (modal.isVisible) {
-              modal.hide();
-            }
+            modal.hide();
           });
           this.closeDimmer();
         }
@@ -301,12 +293,12 @@ exports.default = {
           var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
           var message = params.message,
               _onApprove = params.onApprove,
-              _onCancel = params.onCancel;
+              _onCancel = params.onCancel,
+              parent = params.parent;
           var approveLabel = params.approveLabel,
               cancelLabel = params.cancelLabel,
               approveBtnClass = params.approveBtnClass,
               cancelBtnClass = params.cancelBtnClass,
-              parent = params.parent,
               style = params.style;
 
 
@@ -408,7 +400,7 @@ exports.default = {
 
           if (hideModalsOnDimmerClick) {
             (0, _jquery2.default)(document).on('click', dimmerSelector, function () {
-              if (event.target != (0, _jquery2.default)(dimmerSelector).get(0)) {
+              if (event.target !== (0, _jquery2.default)(dimmerSelector).get(0)) {
                 return;
               }
               Vue.prototype.$modals.hideAll();
@@ -425,7 +417,11 @@ exports.default = {
 
           (0, _jquery2.default)(window).on('keyup', function (event) {
             if ((0, _jquery2.default)(dimmerSelector).hasClass('show') && event.keyCode === 27) {
-              Vue.prototype.$modals.hideAll(true);
+              Vue.prototype.$modals.activeModals.filter(function (modal) {
+                return modal.closeByEsc;
+              }).forEach(function (modal) {
+                return modal.hide();
+              });
             }
           });
 
