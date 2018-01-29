@@ -249,7 +249,7 @@ export default {
 
         if (hideModalsOnDimmerClick) {
           // close all modals when clickling on dimmer
-          $(document).on('click', dimmerSelector, () => {
+          $(document).on('click', dimmerSelector, (event) => {
             if (event.target !== $(dimmerSelector).get(0)) {
               return;
             }
@@ -258,7 +258,7 @@ export default {
         }
 
         // hide modals when clicking on back button
-        $(window).on('popstate', () => {
+        $(window).on('popstate', (event) => {
           if ($(dimmerSelector).hasClass('show')) {
             event.stopPropagation();
             event.preventDefault();

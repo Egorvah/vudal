@@ -399,7 +399,7 @@ exports.default = {
           (0, _jquery2.default)(document.body).append(dimmer);
 
           if (hideModalsOnDimmerClick) {
-            (0, _jquery2.default)(document).on('click', dimmerSelector, function () {
+            (0, _jquery2.default)(document).on('click', dimmerSelector, function (event) {
               if (event.target !== (0, _jquery2.default)(dimmerSelector).get(0)) {
                 return;
               }
@@ -407,7 +407,7 @@ exports.default = {
             });
           }
 
-          (0, _jquery2.default)(window).on('popstate', function () {
+          (0, _jquery2.default)(window).on('popstate', function (event) {
             if ((0, _jquery2.default)(dimmerSelector).hasClass('show')) {
               event.stopPropagation();
               event.preventDefault();
