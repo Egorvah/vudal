@@ -328,7 +328,7 @@ exports.default = {
 
           new Vue({
             render: function render(h) {
-              return h(_vudal2.default, { class: style, props: { name: 'confirmModal', parent: parent }, on: { hide: this.closeVudal } }, [h('div', { class: 'header main center' }, [message]), h('div', { class: 'actions' }, [h('button', { class: approveBtnClass, on: { click: this.onApprove }, style: { marginLeft: '5px' } }, [approveLabel]), h('button', { class: cancelBtnClass, on: { click: this.onCancel }, style: { marginLeft: '5px' } }, [cancelLabel])])]);
+              return h(_vudal2.default, { class: style, props: { name: 'confirmModal', parent: parent }, on: { hide: this.closeVudal } }, [h('div', { class: 'header main center', domProps: { innerHTML: message } }, []), h('div', { class: 'actions' }, [h('button', { class: approveBtnClass, on: { click: this.onApprove }, style: { marginLeft: '5px' } }, [approveLabel]), h('button', { class: cancelBtnClass, on: { click: this.onCancel }, style: { marginLeft: '5px' } }, [cancelLabel])])]);
             },
             data: function data() {
               return { message: message };

@@ -370,7 +370,7 @@ export default {
 
           render(h) {
             return h(Vudal, { class: style, props: { name: 'confirmModal', parent }, on: { hide: this.closeVudal } }, [
-              h('div', { class: 'header main center' }, [message]),
+              h('div', { class: 'header main center', domProps: { innerHTML: message } }, []),
               h('div', { class: 'actions' }, [
                 h('button', { class: approveBtnClass, on: { click: this.onApprove }, style: { marginLeft: '5px' } }, [approveLabel]),
                 h('button', { class: cancelBtnClass, on: { click: this.onCancel }, style: { marginLeft: '5px' } }, [cancelLabel]),
