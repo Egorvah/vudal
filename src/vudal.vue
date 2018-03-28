@@ -68,6 +68,10 @@
     width: 90%;
   }
 
+  .vudal.x-wide {
+    width: 99%;
+  }
+
   .vudal.narrow {
     width: auto;
     min-width: 250px;
