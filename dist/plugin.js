@@ -261,12 +261,12 @@ exports.default = {
         }
       }, {
         key: 'alert',
-        value: function alert(message) {
+        value: function alert(message, details) {
           var _this5 = this;
 
           new Vue({
             render: function render(h) {
-              return h(_vudal2.default, { class: 'narrow', props: { name: 'alertModal' }, on: { hide: this.onOk } }, [h('div', { class: 'header main center' }, [message]), h('div', { class: 'actions' }, [h('button', { class: 'vudal-btn', on: { click: this.onOk } }, ['OK'])])]);
+              return h(_vudal2.default, { class: 'narrow', props: { name: 'alertModal' }, on: { hide: this.onOk } }, [h('div', { class: 'header main center', domProps: { innerHTML: message } }, []), h('div', { class: 'content center', domProps: { innerHTML: details } }, []), h('div', { class: 'actions' }, [h('button', { class: 'vudal-btn', on: { click: this.onOk } }, ['OK'])])]);
             },
             data: function data() {
               return { message: message };

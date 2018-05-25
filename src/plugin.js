@@ -294,12 +294,13 @@ export default {
       /**
        * Create alert window based on vudal
        */
-      alert(message) {
+      alert(message, details) {
         new Vue({
 
           render(h) {
             return h(Vudal, { class: 'narrow', props: { name: 'alertModal' }, on: { hide: this.onOk } }, [
-              h('div', { class: 'header main center' }, [message]),
+              h('div', { class: 'header main center', domProps: { innerHTML: message } }, []),
+              h('div', { class: 'content center', domProps: { innerHTML: details } }, []),
               h('div', { class: 'actions' }, [
                 h('button', { class: 'vudal-btn', on: { click: this.onOk } }, ['OK']),
               ]),
