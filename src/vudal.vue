@@ -282,4 +282,13 @@
     to   { opacity: 0; }
   }
 
+  .sticky-header {
+    position: sticky;
+    top: 0px;
+  }
+
+  .sticky-actions {
+    position: sticky;
+    bottom: 0px;
+  }
 </style>

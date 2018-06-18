@@ -3,6 +3,17 @@ import modalMixin from './modalMixin';
 
 export default {
 
+  props: {
+    stickyHeader: {
+      type: Boolean,
+      default: false,
+    },
+    stickyActions: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   mixins: [modalMixin],
 
   mounted() {
@@ -21,6 +32,15 @@ export default {
     $(this.$el).on('click', '.actions .cancel, .actions .deny, .actions .negative, .close-modal', () => {
       this.hide();
     });
+
+    // sticky blocks
+    if ($(this.$el).has('.header') && this.stickyHeader) {
+      $(this.$el).children('.header').addClass('sticky-header');
+    }
+
+    if ($(this.$el).has('.actions') && this.stickyActions) {
+      $(this.$el).children('.actions').addClass('sticky-actions');
+    }
   },
 
   watch: {
