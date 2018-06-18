@@ -46,6 +46,8 @@ Params:
 * **name** modal name
 * **parent** parent modal name (if any)
 * **close-by-esc** close by `ESC` button (true by default)
+* **stickyHeader** set sticky header block (class .header) (false by default)
+* **stickyActions** set sticky actions block (class .actions) (false by default)
 
 Parent-child relationship is needed when second (child) modals is opened, but you close first modal (parent), child should also be closed. Also parent modal is blurred when child is opened.
 
