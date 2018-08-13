@@ -241,28 +241,36 @@ exports.default = {
       }, {
         key: 'setPosition',
         value: function setPosition(modal) {
+          var _this4 = this;
+
           if (!modal.autoCenter) {
             return;
           }
           setTimeout(function () {
-            var marginTop = (0, _jquery2.default)(window).height() - 50 < (0, _jquery2.default)(modal.$el).height() ? (0, _jquery2.default)(window).height() / 2 - 50 : (0, _jquery2.default)(modal.$el).height() / 2;
-            var marginLeft = (0, _jquery2.default)(modal.$el).width() / 2;
-            (0, _jquery2.default)(modal.$el).css('margin', '-' + marginTop + 'px 0 50px -' + marginLeft + 'px');
+            if (_this4.activeModals.length === 1) {
+              var marginTop = (0, _jquery2.default)(window).height() - 50 < (0, _jquery2.default)(modal.$el).height() ? (0, _jquery2.default)(window).height() / 2 - 50 : (0, _jquery2.default)(modal.$el).height() / 2;
+              var marginLeft = (0, _jquery2.default)(modal.$el).width() / 2;
+              (0, _jquery2.default)(modal.$el).css('margin', '-' + marginTop + 'px 0 50px -' + marginLeft + 'px');
+            } else {
+              var top = (0, _jquery2.default)(window).height() / 2 - (0, _jquery2.default)(modal.$el).height() / 2 + (0, _jquery2.default)('.vudal-dimmer').scrollTop();
+              (0, _jquery2.default)(modal.$el).css('top', top + 'px');
+              (0, _jquery2.default)(modal.$el).css('margin-top', '0px');
+            }
           }, 0);
         }
       }, {
         key: 'resetPositions',
         value: function resetPositions() {
-          var _this4 = this;
+          var _this5 = this;
 
           this.modals.forEach(function (modal) {
-            _this4.setPosition(modal);
+            _this5.setPosition(modal);
           });
         }
       }, {
         key: 'alert',
         value: function alert(message, details) {
-          var _this5 = this;
+          var _this6 = this;
 
           new Vue({
             render: function render(h) {
@@ -282,13 +290,13 @@ exports.default = {
           }).$mount();
 
           Vue.nextTick(function () {
-            _this5.getModal('alertModal').$show();
+            _this6.getModal('alertModal').$show();
           });
         }
       }, {
         key: 'confirm',
         value: function confirm() {
-          var _this6 = this;
+          var _this7 = this;
 
           var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
           var message = params.message,
@@ -355,7 +363,7 @@ exports.default = {
           }).$mount();
 
           Vue.nextTick(function () {
-            _this6.getModal('confirmModal').$show();
+            _this7.getModal('confirmModal').$show();
           });
         }
       }, {

@@ -229,11 +229,21 @@ export default {
           return;
         }
         setTimeout(() => {
-          const marginTop = ($(window).height() - 50) < $(modal.$el).height()
-            ? ($(window).height() / 2) - 50
-            : $(modal.$el).height() / 2;
-          const marginLeft = $(modal.$el).width() / 2;
-          $(modal.$el).css('margin', `-${marginTop}px 0 50px -${marginLeft}px`);
+          // if there is only one active modal
+          // then calculate margin (old method)
+          // but for children calculate using top
+          if (this.activeModals.length === 1) {
+            const marginTop = ($(window).height() - 50) < $(modal.$el).height()
+              ? ($(window).height() / 2) - 50
+              : $(modal.$el).height() / 2;
+            const marginLeft = $(modal.$el).width() / 2;
+            $(modal.$el).css('margin', `-${marginTop}px 0 50px -${marginLeft}px`);
+          }
+          else {
+            const top = ($(window).height() / 2) - ($(modal.$el).height() / 2) + $('.vudal-dimmer').scrollTop();
+            $(modal.$el).css('top', `${top}px`);
+            $(modal.$el).css('margin-top', `0px`);
+          }
         }, 0);
       }
 
