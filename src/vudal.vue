@@ -165,6 +165,7 @@
     -o-filter: blur(4px);
     -ms-filter: blur(4px);
     filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
+    position: fixed;
   }
 
   .vudal .horizontal-scroll {
