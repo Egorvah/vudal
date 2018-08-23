@@ -53,6 +53,11 @@ exports.default = {
     autoCenter: {
       type: Boolean,
       default: true
+    },
+
+    hideConfirmationMessage: {
+      type: String,
+      default: null
     }
   },
 
@@ -151,9 +156,23 @@ exports.default = {
       this.$modals.onShow(this);
     },
     hide: function hide() {
-      this.isVisible = false;
-      this.internalOptions.onHide();
-      this.$modals.onHide(this);
+      var _this2 = this;
+
+      var doHide = function doHide() {
+        _this2.isVisible = false;
+        _this2.internalOptions.onHide();
+        _this2.$modals.onHide(_this2);
+      };
+
+      if (this.hideConfirmationMessage) {
+        this.$modals.confirm({
+          message: this.hideConfirmationMessage,
+          onApprove: doHide,
+          parent: this.name
+        });
+      } else {
+        doHide();
+      }
     }
   },
 

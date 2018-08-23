@@ -174,7 +174,10 @@ export default {
 
           modal.hide();
         });
-        this.closeDimmer();
+
+        if (!this.hasActiveModals) {
+          this.closeDimmer();
+        }
       }
 
       getChildrenModals(modal) {
@@ -260,6 +263,9 @@ export default {
         if (hideModalsOnDimmerClick) {
           // close all modals when clickling on dimmer
           $(document).on('click', dimmerSelector, (event) => {
+            if (Vue.prototype.$modals.getModal('confirmModal') != null) {
+              return;
+            }
             if (event.target !== $(dimmerSelector).get(0)) {
               return;
             }

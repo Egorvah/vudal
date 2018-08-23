@@ -35,6 +35,11 @@ export default {
       type: Boolean,
       default: true,
     },
+
+    hideConfirmationMessage: {
+      type: String,
+      default: null,
+    },
   },
 
   data() {
@@ -124,9 +129,22 @@ export default {
     },
 
     hide() {
-      this.isVisible = false;
-      this.internalOptions.onHide();
-      this.$modals.onHide(this);
+      const doHide = () => {
+        this.isVisible = false;
+        this.internalOptions.onHide();
+        this.$modals.onHide(this);
+      }
+
+      if (this.hideConfirmationMessage) {
+        this.$modals.confirm({
+          message: this.hideConfirmationMessage,
+          onApprove: doHide,
+          parent: this.name,
+        });
+      }
+      else {
+        doHide();
+      }
     },
   },
 

@@ -186,7 +186,10 @@ exports.default = {
 
             modal.hide();
           });
-          this.closeDimmer();
+
+          if (!this.hasActiveModals) {
+            this.closeDimmer();
+          }
         }
       }, {
         key: 'getChildrenModals',
@@ -408,6 +411,9 @@ exports.default = {
 
           if (hideModalsOnDimmerClick) {
             (0, _jquery2.default)(document).on('click', dimmerSelector, function (event) {
+              if (Vue.prototype.$modals.getModal('confirmModal') != null) {
+                return;
+              }
               if (event.target !== (0, _jquery2.default)(dimmerSelector).get(0)) {
                 return;
               }
