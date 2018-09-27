@@ -24,7 +24,7 @@
   }
 
   .vudal-dimmer {
-    overflow: scroll;
+    overflow: auto;
     display: none;
     position: fixed;
     top: 0!important;
