@@ -46,6 +46,7 @@ export default {
     return {
       isVisible: false,
       internalOptions: this.options,
+      showedAt: null,
     };
   },
 
@@ -124,6 +125,7 @@ export default {
 
     show() {
       this.isVisible = true;
+      this.showedAt = Date.now();
       this.internalOptions.onShow();
       this.$modals.onShow(this);
     },
@@ -131,6 +133,7 @@ export default {
     hide() {
       const doHide = () => {
         this.isVisible = false;
+        this.showedAt = null;
         this.internalOptions.onHide();
         this.$modals.onHide(this);
       }

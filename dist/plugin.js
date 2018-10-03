@@ -374,6 +374,14 @@ exports.default = {
         get: function get() {
           return this.modals.filter(function (modal) {
             return modal.isVisible;
+          }).sort(function (a, b) {
+            if (a.showedAt < b.showedAt) {
+              return -1;
+            }
+            if (a.showedAt > b.showedAt) {
+              return 1;
+            }
+            return 0;
           });
         }
       }, {
@@ -431,11 +439,12 @@ exports.default = {
 
           (0, _jquery2.default)(window).on('keyup', function (event) {
             if ((0, _jquery2.default)(dimmerSelector).hasClass('show') && event.keyCode === 27) {
-              Vue.prototype.$modals.activeModals.filter(function (modal) {
+              var modals = Vue.prototype.$modals.activeModals.filter(function (modal) {
                 return modal.closeByEsc;
-              }).forEach(function (modal) {
-                return modal.hide();
               });
+              if (modals.length > 0) {
+                modals[modals.length - 1].hide();
+              }
             }
           });
 

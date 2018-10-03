@@ -159,7 +159,15 @@ export default {
       }
 
       get activeModals() {
-        return this.modals.filter(modal => modal.isVisible);
+        return this.modals.filter(modal => modal.isVisible).sort((a, b) => {
+          if (a.showedAt < b.showedAt) {
+            return -1;
+          }
+          if (a.showedAt > b.showedAt) {
+            return 1;
+          }
+          return 0;
+        });
       }
 
       get hasActiveModals() {
@@ -285,7 +293,10 @@ export default {
         // hide modals on esc
         $(window).on('keyup', (event) => {
           if ($(dimmerSelector).hasClass('show') && event.keyCode === 27) {
-            Vue.prototype.$modals.activeModals.filter(modal => modal.closeByEsc).forEach(modal => modal.hide());
+            const modals = Vue.prototype.$modals.activeModals.filter(modal => modal.closeByEsc);
+            if (modals.length > 0) {
+              modals[modals.length - 1].hide();
+            }
           }
         });
 

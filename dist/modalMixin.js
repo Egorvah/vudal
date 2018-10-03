@@ -64,7 +64,8 @@ exports.default = {
   data: function data() {
     return {
       isVisible: false,
-      internalOptions: this.options
+      internalOptions: this.options,
+      showedAt: null
     };
   },
   mounted: function mounted() {
@@ -152,6 +153,7 @@ exports.default = {
     },
     show: function show() {
       this.isVisible = true;
+      this.showedAt = Date.now();
       this.internalOptions.onShow();
       this.$modals.onShow(this);
     },
@@ -160,6 +162,7 @@ exports.default = {
 
       var doHide = function doHide() {
         _this2.isVisible = false;
+        _this2.showedAt = null;
         _this2.internalOptions.onHide();
         _this2.$modals.onHide(_this2);
       };
