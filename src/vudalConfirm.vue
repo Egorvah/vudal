@@ -1,5 +1,5 @@
 <template>
-  <vudal :name="name" class="narrow">
+  <vudal :name="name" class="narrow center">
     <div class="header main center">
       <slot></slot>
     </div>

@@ -77,6 +77,10 @@
     min-width: 250px;
   }
 
+  .vudal.center {
+    position: fixed;
+  }
+
   .vudal.show {
     display: block;
   }
